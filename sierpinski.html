@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Trójkąt Sierpińskiego</title>
+    <style>
+        canvas{
+            background-color: lightblue;
+            display: block;
+            border: 1px black;
+            margin: 0 auto;
+        }
+        h1{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1>Trójkąt Sierpińskiego</h1>
+<canvas id='my-can'>Narysowany trójkąt Sierpińskiego</canvas>
+<script>
+    let can = document.getElementById("my-can");
+    can.width = 800;
+    can.height = 800;
+    let ctx = can.getContext("2d");
+    sierpinski( 20, can.height-20, can.width-20, can.height-20, can.width/2, 20, ctx, 2 );
+    console.log(20, can.height-20, can.width-20, can.height-20, can.width/2, 20 );
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = '2px';
+    ctx.stroke();
+    function sierpinski( x1, y1, x2, y2, x3, y3, c, d){
+        if ( d<1 ) {
+            c.moveTo(x1, y1);
+            c.lineTo(x2, y2);
+            c.lineTo(x3, y3);
+            c.lineTo(x1, y1);
+        } else {
+            sierpinski(           x1,           y1, x1+(x2-x1)/2,           y1, x1+(x3-x1)/2, y3+(y1-y3)/2, c, d-1 );
+            sierpinski( x1+(x2-x1)/2,           y1,           x2,           y2, x3+(x2-x3)/2, y3+(y2-y3)/2, c, d-1 );
+            sierpinski( x1+(x3-x1)/2, y3+(y1-y3)/2, x3+(x2-x3)/2, y3+(y2-y3)/2,           x3,           y3, c, d-1 );
+
+            console.log( x1, y1, x1+(x2-x1)/2, y1,  x1+(x3-x1)/2, y3+(y1-y3)/2 );
+            console.log( x1+(x3-x1)/2, y3+(y1-y3)/2, x3+(x2-x3)/2, y3+(y2-y3)/2, x3, y3 );
+            console.log( x1+(x2-x1)/2, y1, x2, y2, x3+(x3-x2)/2, y3+(y2-y3)/2 );
+        }
+    }
+</script>
+</body>
+</html>
