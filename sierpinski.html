@@ -19,14 +19,21 @@
 <h1>Trójkąt Sierpińskiego</h1>
 <canvas id='my-can'>Narysowany trójkąt Sierpińskiego</canvas>
 <script>
+    let maxX = 800;
+    let maxY = 800;
+    let a = 95 * maxX / 100;
+    let h = Math.sqrt( a*a - a*a/4 );
+    let mx = ( maxX - a )/2;
+    let my = ( maxY - h )/2;
+
     let can = document.getElementById("my-can");
-    can.width = 800;
-    can.height = 800;
+    can.width = maxX;
+    can.height = maxY;
+
     let ctx = can.getContext("2d");
-    sierpinski( 20, can.height-20, can.width-20, can.height-20, can.width/2, 20, ctx, 2 );
-    console.log(20, can.height-20, can.width-20, can.height-20, can.width/2, 20 );
+    sierpinski( mx, can.height-my, can.width-mx, can.height-my, can.width/2, my, ctx, 7);
     ctx.strokeStyle = 'black';
-    ctx.lineWidth = '2px';
+    ctx.lineWidth = '1px';
     ctx.stroke();
     function sierpinski( x1, y1, x2, y2, x3, y3, c, d){
         if ( d<1 ) {
